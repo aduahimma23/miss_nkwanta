@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title %} songs {% endblock %}
+{% block content %}
+
+<main>
+    <div class="song-container">
+        <h1>Song List</h1>
+        <div class="song-list">
+            <ul class="list-group d-flex flex-column">
+                {% for song in songs %}
+                    <li class="list-group-item">
+                        <strong>{{ song.title }}</strong> by {{ song.artist }}
+                        <audio controls>
+                            <source src="{{ song.audio_file.url }}" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <a href="{{ song.audio_file.url }}" class="btn btn-success" download>Download</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+    <div class="reg-container mt-5 d-flex flex-column justify-content-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="contestant-card">
+                    <div class="contestant=card-body">
+                        <h2 class="text-center mb-4">Register Here</h2>
+                        <form method="post">
+                            {% csrf_token %}
+  
+                            <div class="form-group">
+                                <label for="{{ form.full_name.id_for_label }}">Full Name:</label>
+                                {{ form.full_name }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.stage_name.id_for_label }}">Stage Name:</label>
+                                {{ form.stage_name }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}">Email:</label>
+                                {{ form.email }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.age.id_for_label }}">Age:</label>
+                                {{ form.age }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                                {{ form.gender }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
+                                {{ form.phone_number }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.image.id_for_label }}">Image:</label>
+                                {{ form.image }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.town.id_for_label }}">Town:</label>
+                                {{ form.town }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.occupation.id_for_label }}">Occupation:</label>
+                                {{ form.occupation }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.role_model.id_for_label }}">Role Model:</label>
+                                {{ form.role_model }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.hobby.id_for_label }}">Hobby:</label>
+                                {{ form.hobby }}
+                            </div>
+  
+                            <div class="form-group">
+                                <label for="{{ form.favourite_food.id_for_label }}">Favourite Food:</label>
+                                {{ form.favourite_food }}
+                            </div>
+  
+                            <button class="btn btn-success" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+  {% endblock %}

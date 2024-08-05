@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+{% load static %}
+
+<main>
+    <h2 class="text-center">Blost Posts</h2>
+    <div class="container mt-5">
+        <div class="row">
+            {% for blog in posts %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        {% if blog.image %}
+                            <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h2 class="card-title">{{ blog.title }}</h2>
+                            <div class="categories">
+                                <p>Categories:</p>
+                                {% for category in blog.category.all %}
+                                    <span>{{ category.name }}</span>
+                                {% endfor %}
+                            </div>
+                            <p class="card-text">{{ blog.content | truncatewords:20 }}</p>
+                            <a href="{% url 'main:blog_detail' pk=blog.pk %}" class="btn btn-success">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

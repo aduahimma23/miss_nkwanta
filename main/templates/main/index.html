@@ -1,0 +1,142 @@
+{% extends "main/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load static %}
+
+<main>
+    <div id="carouselExampleCaptions" class="carousel slide mb-5" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+        </ol>
+    
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="5000">
+                <img src="{% static 'images/home/missdnk1.jpg' %}" class="d-block w-100 header-img" alt="Image not found">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>Winner</h1>
+                </div>
+            </div>
+    
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="{% static 'images/home/missdnk2.jpg' %}" class="d-block w-100 header-img" alt="Image not found">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2>1st Runner up</h2>
+                </div>
+            </div>
+    
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="{% static 'images/home/missdnk1.jpg' %}" class="d-block w-100 header-img" alt="Image not found">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2>2nd Runners up</h2>
+                </div>
+            </div>
+    
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>    
+
+    <div class="container">
+        <div class="contestant">
+            <div class="row">
+                <div class="col text-center">
+                    {% if registration_open %}
+                        <h2 class="mb-4">Registration open for {{ context.next_year }}</h2>
+                        <a href="{% url 'main:contestant' %}">
+                            <button class="btn btn-success">Register</button>
+                        </a>
+                        <h3>Compete with others</h3>
+                    {% else %}
+                        <h2 class="mb-4">Registration closed for {{ context.next_year }}.</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% if contestants %}
+                <h2 class="contest-year">{{ context.next_year }} Contestants</h2>
+                <div class="contestants">
+                    {% for contestant in contestants %}
+                        {% if contestant.approved and contestant.created_year == context.next_year %}
+                            <div class="col-md-4 mb-4">
+                                <div class="contestant text-center">
+                                    <img src="{{ contestant.image.url }}" alt="{{ contestant.full_name }}" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
+                                    <h2>{{ contestant.full_name }}</h2>
+                                    <p>Stage Name: {{ contestant.stage_name }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h2 class="mb-4">No Contestant for {{ context.next_year }}.</h2>
+            {% endif %}
+        </div>
+    </div>
+
+     <!-- Invited Artists Section -->
+     <div class="container">
+        <div class="invited-container">
+            {% if artists %}
+                <h2 class="text-center">Invited Artists for {{ current_year }}</h2>
+                <div class="row">
+                    {% for artist in artists %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="{{ artist.image.url }}" class="card-img-top" alt="{{ artist.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ artist.name }}</h5>
+                                    <p class="card-text">{{ artist.short_content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h2 class="no-artists-message">No invited artists for the current year.</h2>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Stage Performances Section -->
+    <div class="container">
+        <div class="perfomance-container">
+            {% if performances %}
+                <h2 class="section-header">Stage Performance {{ current_year }}</h2>
+                <div class="row justify-content-center">
+                    {% for performance in performances %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card">
+                                <video class="card-img-top performance-video-css" controls>
+                                    <source src="{{ performance.video_url.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">{{ performance.content }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <h2 class="text-center">No performances available.</h2>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+</main>
+
+{% endblock %}

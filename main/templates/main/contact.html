@@ -1,0 +1,117 @@
+{% extends "main/base.html" %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+{% load static %}
+
+<main>
+<section class="contact-page-sec">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i class="fas fa-map-marked"></i>
+            </div>
+            <div class="contact-info-text">
+              <h2>Phone Number</h2>
+              {% for phone in contact_update %}
+                <span>{{ phone }}</span> 
+              {% endfor %}
+            </div>
+          </div>            
+        </div>          
+      </div>  
+
+      <div class="col-md-4">
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-info-text">
+              <h2>E-mail Address </h2>
+              {% for email in contact_update %}
+                <span>{{ email }}</span>
+              {% endfor %}
+            </div>
+          </div>            
+        </div>                
+      </div>
+
+      <div class="col-md-4">
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <i class="fas fa-map-marked"></i>
+            </div>
+            <div class="contact-info-text">
+              <h2>Address </h2>
+              <span>{{ contact_update.address }}</span> 
+              <span>{{ contact_update.location }}</span> 
+              <span>Donkro Nkwanta, Ghana</span> 
+            </div>
+          </div>            
+        </div>          
+      </div>   
+                       
+    <!-- Social Media Handles -->
+    <div class="middle">
+      {% if contact_update.facebook_url %}
+      <a href="{{ contact_update.facebook_url }}" class="social-btn">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      {% endif %}
+
+      {% if contact_update.tiktok_handle %}
+      <a href="{{ contact_update.tiktok_handle }}" class="social-btn">
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+      {% endif %}
+    
+      {% if contact_update.twitter_handle %}
+      <a href="https://twitter.com/{{ contact_update.twitter_handle }}" class="social-btn">
+        <i class="fab fa-twitter"></i>
+      </a>
+      {% endif %}
+    
+      {% if contact_update.instagram_handle %}
+      <a href="https://www.instagram.com/{{ contact_update.instagram_handle }}" class="social-btn">
+        <i class="fab fa-instagram"></i>
+      </a>
+      {% endif %}
+    
+      {% if contact_update.youtube_channel %}
+        <a href="{{ contact_update.youtube_channel }}" class="social-btn">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-md-8">
+              <div class="contact-page-form text-center">
+                  <h2>Get in Touch</h2>
+                  <form action="contact-mail" method="post">
+                      <div class="row">
+                          <div class="col-md-6 col-sm-6 col-xs-12 mx-auto">
+                              <form method="post">
+                                  {% csrf_token %}
+                                  {{ form.as_p }}
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                              </form>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  </div>
+  </div>
+</section>
+</main>
+{% endblock %}

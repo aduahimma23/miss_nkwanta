@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+    <div class="bdcontainer mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">{{ post.title }}</h2>
+                        <p>{{ post.content }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="blog-details">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="text-center mb-4">User Feedback</h2>
+                                <form method="post" action="{% url 'main:blog_detail' pk=post.id %}">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="{{ form.name.id_for_label }}" class="form-label">Name:</label>
+                                            {{ form.name }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="{{ form.email.id_for_label }}" class="form-label">Email:</label>
+                                            {{ form.email }}
+                                        </div>
+                                    </div>
+                                    <div class="row feedback-row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="{{ form.feedback.id_for_label }}" class="form-label">Feedback:</label>
+                                            {{ form.feedback }}
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Send</button>
+                                </form>
+    
+                                {% if form.errors %}
+                                    <div class="alert alert-danger mt-3">
+                                        {{ form.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</main>
+
+{% endblock %}
